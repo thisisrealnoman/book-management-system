@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- header start -->
+    <header class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Left Section: Title -->
+            <div class="text-2xl font-bold">
+                Book Library
+            </div>
+
+            <!-- Middle Left Section: Navigation Links -->
+            <nav class="flex space-x-6">
+                <ul class="flex space-x-6 text-lg">
+                    <li><a href="#home" class="hover:text-blue-500">Home</a></li>
+                    <li><a href="#about" class="hover:text-blue-500">About Us</a></li>
+                </ul>
+            </nav>
+
+            <!-- Middle Right Section: Search Bar -->
+            <div class="relative w-full max-w-lg"> <!-- Added max width and full width -->
+                <input type="text" placeholder="Search books..." class="w-full px-6 py-4 pl-12 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-xl" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a7 7 0 0113 7 7 7 0 01-7 7h-6a7 7 0 01-7-7 7 7 0 017-7zM11 4v3m0 4v7" />
+                </svg>
+            </div>
+
+            <!-- Right Section: Developer Login Button -->
+            <button id="login-btn" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                Developer Login
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="top-rated-books" class="bg-gray-100 py-8">
+            <div class="container mx-auto">
+                <!-- Section Title -->
+                <h2 class="text-3xl font-bold text-center mb-6">Top-Rated Books</h2>
+
+                <!-- Books Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Book Card -->
+                    <div class="bg-white shadow-md rounded-md overflow-hidden">
+                        <img src="https://via.placeholder.com/150" alt="Book Thumbnail" class="w-full h-48 object-cover" />
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2">Book Title</h3>
+                            <p class="text-gray-700 mb-1">Author: John Doe</p>
+                            <p class="text-gray-700 mb-2">Rating: ⭐⭐⭐⭐☆ (4.5)</p>
+                            <button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Repeat Book Card for other books -->
+                    <div class="bg-white shadow-md rounded-md overflow-hidden">
+                        <img src="https://via.placeholder.com/150" alt="Book Thumbnail" class="w-full h-48 object-cover" />
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2">Another Book</h3>
+                            <p class="text-gray-700 mb-1">Author: Jane Doe</p>
+                            <p class="text-gray-700 mb-2">Rating: ⭐⭐⭐⭐⭐ (5.0)</p>
+                            <button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- More book cards as needed -->
+                    <div class="bg-white shadow-md rounded-md overflow-hidden">
+                        <img src="https://via.placeholder.com/150" alt="Book Thumbnail" class="w-full h-48 object-cover" />
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2">Another Book</h3>
+                            <p class="text-gray-700 mb-1">Author: Jane Doe</p>
+                            <p class="text-gray-700 mb-2">Rating: ⭐⭐⭐⭐⭐ (5.0)</p>
+                            <button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- see-all-books -->
+        <section>
+            <section id="see-all-books" class="bg-white py-8">
+                <div class="container mx-auto text-center">
+                    <button id="see-all-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md">
+                        See All Books
+                    </button>
+                    <div id="all-books" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 hidden"></div>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <script>
+        // Handle Developer Login button
+        document.getElementById('login-btn').addEventListener('click', function () {
+            window.location.href = 'login.html'; // Redirect to login.html
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
