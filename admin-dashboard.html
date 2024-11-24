@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-8">
+        <!-- Navbar -->
+        <nav class="bg-blue-500 text-white p-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-semibold">Admin Dashboard</h1>
+                <button id="logout-btn" class="btn bg-red-500 text-white px-6 py-2 rounded-md">Logout</button>
+            </div>
+        </nav>
+
+        <!-- Add New Book Form -->
+        <section class="mt-8">
+            <h2 class="text-xl font-semibold">Add New Book</h2>
+            <form id="add-book-form" class="space-y-4">
+                <div>
+                    <label for="title" class="font-semibold">Title</label>
+                    <input type="text" id="title" placeholder="Book Title" class="input input-bordered w-full" required />
+                </div>
+                <div>
+                    <label for="author" class="font-semibold">Author</label>
+                    <input type="text" id="author" placeholder="Author Name" class="input input-bordered w-full" required />
+                </div>
+                <div>
+                    <label for="rating" class="font-semibold">Rating</label>
+                    <input type="number" id="rating" placeholder="Rating (0-5)" class="input input-bordered w-full" required min="0" max="5" />
+                </div>
+                <button type="submit" class="btn bg-blue-500 w-full mt-4">Add Book</button>
+            </form>
+        </section>
+
+        <!-- Display Books -->
+        <section class="mt-8">
+            <h2 class="text-xl font-semibold">Books List</h2>
+            <div id="book-list" class="space-y-4 mt-4">
+                <!-- Books will be listed here -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Check if the user is logged in
+        if (!localStorage.getItem('isAdmin')) {
+            window.location.href = 'login.html'; // Redirect to login page if not logged in
+        }
+
+        // Sample book data (if no data in localStorage)
+        const defaultBooks = [
+            { title: 'Book 1', author: 'Author 1', rating: 4, id: '1' },
+            { title: 'Book 2', author: 'Author 2', rating: 5, id: '2' },
+        ];
+
+        // Load books from localStorage or use default
+        const loadBooks = () => {
+            const books = JSON.parse(localStorage.getItem('books')) || defaultBooks;
+            const bookList = document.getElementById('book-list');
+            bookList.innerHTML = ''; // Clear existing list
+            books.forEach((book, index) => {
+                bookList.innerHTML += `
+                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                        <div>
+                            <h3 class="font-semibold">${book.title}</h3>
+                            <p>By: ${book.author}</p>
+                            <p>Rating: ${book.rating}</p>
+                        </div>
+                        <div>
+                            <button onclick="editBook('${book.id}')" class="btn btn-outline btn-warning mr-2">Edit</button>
+                            <button onclick="deleteBook('${book.id}')" class="btn btn-outline btn-error">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+        };
+
+        // Add new book
+        document.getElementById('add-book-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const rating = document.getElementById('rating').value;
+
+            const newBook = {
+                title,
+                author,
+                rating: parseFloat(rating),
+                id: Date.now().toString(),
+            };
+
+            // Get books from localStorage and add the new book
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            books.push(newBook);
+            localStorage.setItem('books', JSON.stringify(books));
+
+            // Clear form fields
+            document.getElementById('title').value = '';
+            document.getElementById('author').value = '';
+            document.getElementById('rating').value = '';
+
+            // Reload book list
+            loadBooks();
+        });
+
+        // Edit a book
+        const editBook = (id) => {
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            const book = books.find((b) => b.id === id);
+
+            if (book) {
+                document.getElementById('title').value = book.title;
+                document.getElementById('author').value = book.author;
+                document.getElementById('rating').value = book.rating;
+                deleteBook(id); // Delete the old book after editing, user will create a new one
+            }
+        };
+
+        // Delete a book
+        const deleteBook = (id) => {
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            const updatedBooks = books.filter((book) => book.id !== id);
+
+            localStorage.setItem('books', JSON.stringify(updatedBooks));
+
+            // Reload book list after deletion
+            loadBooks();
+        };
+
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function () {
+            localStorage.removeItem('isAdmin'); // Remove login status
+            window.location.href = 'login.html'; // Redirect to login page
+        });
+
+        // Load books when page loads
+        loadBooks();
+    </script>
+
+</body>
+
+</html>

@@ -14,20 +14,21 @@
 
     <div class="w-full max-w-4xl mx-auto shadow-xl bg-white rounded-lg flex overflow-hidden">
         <!-- Left Image Section -->
-        <div class="hidden md:flex w-1/2 bg-cover" style="background-image: url('assests/signup-image.jpg');"></div>
+        <div class="hidden md:flex w-1/2 bg-cover" style="background-image: url('assets/signup-image.jpg');"></div>
 
         <!-- Form Section -->
         <div class="w-full md:w-1/2 p-8">
             <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Sign In</h2>
 
             <!-- Sign-in Form -->
-            <form class="space-y-4" method="POST" action="#">
+            <form id="login-form" class="space-y-4" method="POST" action="#">
+
                 <!-- Name Field -->
                 <div class="form-control">
-                    <label for="Username" class="label">
+                    <label for="username" class="label">
                         <span class="label-text font-semibold">Username</span>
                     </label>
-                    <input type="text" id="Username" name="Username" placeholder="Username"
+                    <input type="text" id="username" name="username" placeholder="username"
                         class="input input-bordered w-full" required />
                 </div>
 
@@ -63,7 +64,28 @@
 
         </div>
     </div>
-
+    <script>
+        // Dummy credentials for admin login (for demonstration)
+        const adminUsername = 'admin';
+        const adminPassword = 'password'; // In real-world applications, this would be hashed.
+    
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+    
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('your_pass').value;
+    
+            // Check if credentials are correct
+            if (username === adminUsername && password === adminPassword) {
+                // Redirect to the admin dashboard
+                window.location.href = 'admin-dashboard.html'; // Ensure the path is correct
+            } else {
+                // If credentials are wrong, show an alert
+                alert('Invalid Username or Password');
+            }
+        });
+    </script>
 </body>
 
 </html>
