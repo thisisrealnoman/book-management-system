@@ -21,7 +21,7 @@
             <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Sign In</h2>
 
             <!-- Sign-in Form -->
-            <form id="login-form" class="space-y-4" method="POST" action="#">
+            <form id="login-form" class="space-y-4" action="#">
 
                 <!-- Name Field -->
                 <div class="form-control">
@@ -68,24 +68,28 @@
         // Dummy credentials for admin login (for demonstration)
         const adminUsername = 'admin';
         const adminPassword = 'password'; // In real-world applications, this would be hashed.
-    
+
         // Handle login form submission
         document.getElementById('login-form').addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent the default form submission
-    
+            // Prevent the default form submission behavior
+            e.preventDefault();
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('your_pass').value;
-    
+
             // Check if credentials are correct
+
             if (username === adminUsername && password === adminPassword) {
-                // Redirect to the admin dashboard
-                window.location.href = 'admin-dashboard.html'; // Ensure the path is correct
-            } else {
+                localStorage.setItem('isAdmin', 'true'); // Set login flag
+                window.location.href = 'admin-dashboard.html'; // Redirect to dashboard
+            }
+            else {
                 // If credentials are wrong, show an alert
                 alert('Invalid Username or Password');
             }
         });
     </script>
+
 </body>
 
 </html>
